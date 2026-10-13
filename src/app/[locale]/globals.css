@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* تفعيل الوضع الليلي بناءً على class="dark" */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* الألوان الأساسية - Azure Nebula */
+  --color-primary: #4f8ef7;
+  --color-primary-hover: #3b76e8;
+  --color-primary-light: #7fb0ff;
+  --color-primary-dark: #2c5fd4;
+  --color-primary-deep: #1e3a8a;
+  --color-primary-glow: #60a5fa;
+
+  /* الوضع الليلي */
+  --color-dark-bg: #070b16;
+  --color-dark-card: #0f1524;
+  --color-dark-border: #1a2235;
+  --color-dark-text: #f1f5f9;
+  --color-dark-muted: #8ba0bf;
+
+  /* الوضع النهاري */
+  --color-light-bg: #f8fafc;
+  --color-light-card: #ffffff;
+  --color-light-border: #e2e8f0;
+  --color-light-text: #0a0e1a;
+  --color-light-muted: #64748b;
+
+  /* الخطوط */
+  --font-sans: var(--font-inter), sans-serif;
+  --font-arabic: var(--font-cairo), sans-serif;
+
+  /* الحركات */
+  --animate-fade-in: fadeIn 0.6s ease-in-out;
+  --animate-slide-up: slideUp 0.6s ease-out;
+  --animate-glow: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 30px rgba(79, 142, 247, 0.4);
+  }
+
+  100% {
+    box-shadow: 0 0 60px rgba(79, 142, 247, 0.8);
+  }
+}
+
+/* الـ container المخصص */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 1280px;
+}
+
+/* ============================================
+   الخلفية الفخمة الهادئة
+   ============================================ */
+
+/* ✅ قاعدة أساسية = الوضع الليلي (افتراضي) */
+html {
+  background-color: #070b16;
+  background-image:
+    /* نجمة أساسية - نقاط صغيرة وفاتحة */
+    radial-gradient(circle, rgba(255, 255, 255, 0.09) 0.8px, transparent 0.8px),
+    /* نجمة ثانوية - أصغر وأخفت */
+    radial-gradient(circle, rgba(127, 176, 255, 0.06) 0.6px, transparent 0.6px),
+    /* هالة زرقاء في الأعلى يساراً */
+    radial-gradient(ellipse at top left, rgba(30, 58, 138, 0.18) 0%, transparent 55%),
+    /* هالة زرقاء في الأسفل يميناً */
+    radial-gradient(ellipse at bottom right, rgba(79, 142, 247, 0.07) 0%, transparent 55%),
+    /* تدرج فحمي أساسي */
+    linear-gradient(180deg, #070b16 0%, #0a1020 100%);
+  background-size:
+    80px 80px,
+    45px 45px,
+    auto,
+    auto,
+    auto;
+  background-position:
+    0 0,
+    22px 22px,
+    0 0,
+    0 0,
+    0 0;
+  background-attachment: fixed;
+  background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat;
+}
+
+/* ✅ الوضع النهاري - يتغلب على الأساس بسبب specificity أعلى */
+html.light {
+  background-color: #f8fafc;
+  background-image:
+    /* نقاط بنفسجية فاتحة جداً */
+    radial-gradient(circle, rgba(99, 102, 241, 0.09) 0.8px, transparent 0.8px),
+    /* نقاط زرقاء أخفت */
+    radial-gradient(circle, rgba(79, 142, 247, 0.05) 0.6px, transparent 0.6px),
+    /* هالة زرقاء ناعمة جداً */
+    radial-gradient(ellipse at top left, rgba(79, 142, 247, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(99, 102, 241, 0.04) 0%, transparent 55%),
+    /* تدرج فاتح ناعم */
+    linear-gradient(180deg, #f8fafc 0%, #eff4ff 100%);
+  background-size:
+    80px 80px,
+    45px 45px,
+    auto,
+    auto,
+    auto;
+  background-position:
+    0 0,
+    22px 22px,
+    0 0,
+    0 0,
+    0 0;
+  background-attachment: fixed;
+  background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat;
+}
+
+/* ============================================
+   منع الومضة + إعدادات عامة
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: transparent;
+  min-height: 100vh;
+}
