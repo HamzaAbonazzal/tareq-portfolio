@@ -22,7 +22,7 @@ export async function GET() {
   if (!session) {
     return NextResponse.json(
       { success: false, error: "Unauthorized" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -39,7 +39,7 @@ export async function GET() {
     console.error("GET projects error:", error);
     return NextResponse.json(
       { success: false, error: "Server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -49,7 +49,7 @@ export async function POST(request: Request) {
   if (!session) {
     return NextResponse.json(
       { success: false, error: "Unauthorized" },
-      { status: 401 }
+      { status: 401 },
     );
   }
 
@@ -59,12 +59,8 @@ export async function POST(request: Request) {
 
     if (!parsed.success) {
       return NextResponse.json(
-        {
-          success: false,
-          error: "بيانات غير صحيحة / Invalid data",
-          details: parsed.error.errors,
-        },
-        { status: 400 }
+        { success: false, error: "Invalid data", details: parsed.error.issues },
+        { status: 400 },
       );
     }
 
@@ -76,13 +72,13 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       { success: true, data: JSON.parse(JSON.stringify(project)) },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("POST project error:", error);
     return NextResponse.json(
       { success: false, error: "Server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

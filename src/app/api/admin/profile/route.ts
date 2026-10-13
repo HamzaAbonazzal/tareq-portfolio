@@ -36,8 +36,8 @@ export async function PUT(request: Request) {
     const parsed = profileSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json(
-        { success: false, error: "Invalid data", details: parsed.error.errors },
-        { status: 400 }
+        { success: false, error: "Invalid data", details: parsed.error.issues },
+        { status: 400 },
       );
     }
 
@@ -53,9 +53,15 @@ export async function PUT(request: Request) {
       }).lean();
     }
 
-    return NextResponse.json({ success: true, data: JSON.parse(JSON.stringify(profile)) });
+    return NextResponse.json({
+      success: true,
+      data: JSON.parse(JSON.stringify(profile)),
+    });
   } catch (error) {
     console.error("Profile update error:", error);
-    return NextResponse.json({ success: false, error: "Server error" }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: "Server error" },
+      { status: 500 },
+    );
   }
 }
