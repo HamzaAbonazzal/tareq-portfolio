@@ -3,50 +3,6 @@
 /* تفعيل الوضع الليلي بناءً على class="dark" */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ============================================
-   إعدادات الخطوط للعربية والإنجليزية
-   ============================================ */
-html[lang="ar"],
-html[lang="ar"] body,
-html[lang="ar"] * {
-  font-family: var(--font-cairo), "Cairo", system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-
-/* ✅ منع "التنقل" الأيمن-الأيسر في أول لحظة */
-html {
-  direction: ltr;
-}
-
-html[lang="ar"],
-html[dir="rtl"] {
-  direction: rtl;
-}
-
-html[lang="en"],
-html[dir="ltr"] {
-  direction: ltr;
-}
-
-/* ✅ ثبّت نص الصفحة قبل التحميل الكامل */
-body {
-  direction: inherit;
-  text-align: start;
-}
-
-html[lang="en"],
-html[lang="en"] body,
-html[lang="en"] * {
-  font-family: var(--font-inter), "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-
-/* تحسين عرض النص العربي */
-html[lang="ar"] {
-  font-feature-settings: "kern", "liga", "calt";
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 @theme {
   /* الألوان الأساسية - Azure Nebula */
   --color-primary: #4f8ef7;
@@ -192,15 +148,36 @@ html {
 }
 
 body {
+  overflow-x: hidden;
   background: transparent;
   min-height: 100vh;
 }
 
-/* fallback fonts */
-.font-arabic {
-  font-family: var(--font-cairo), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+/* ============================================
+   منع التمرير الأفقي المزعج (RTL/LTR)
+   ============================================ */
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  position: relative;
 }
 
-.font-sans {
-  font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+/* تأكد من أن كل الأقسام لا تخرج عن الشاشة */
+section,
+main,
+header,
+footer {
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+/* حل مشكلة "القفز" في RTL تحديداً */
+html[dir="rtl"] body {
+  direction: rtl;
+}
+
+html[dir="ltr"] body {
+  direction: ltr;
 }
