@@ -151,3 +151,12 @@ body {
   background: transparent;
   min-height: 100vh;
 }
+
+/* fallback fonts */
+.font-arabic {
+  font-family: var(--font-cairo), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.font-sans {
+  font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
