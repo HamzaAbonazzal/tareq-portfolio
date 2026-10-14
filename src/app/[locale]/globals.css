@@ -3,6 +3,50 @@
 /* تفعيل الوضع الليلي بناءً على class="dark" */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ============================================
+   إعدادات الخطوط للعربية والإنجليزية
+   ============================================ */
+html[lang="ar"],
+html[lang="ar"] body,
+html[lang="ar"] * {
+  font-family: var(--font-cairo), "Cairo", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ✅ منع "التنقل" الأيمن-الأيسر في أول لحظة */
+html {
+  direction: ltr;
+}
+
+html[lang="ar"],
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[lang="en"],
+html[dir="ltr"] {
+  direction: ltr;
+}
+
+/* ✅ ثبّت نص الصفحة قبل التحميل الكامل */
+body {
+  direction: inherit;
+  text-align: start;
+}
+
+html[lang="en"],
+html[lang="en"] body,
+html[lang="en"] * {
+  font-family: var(--font-inter), "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* تحسين عرض النص العربي */
+html[lang="ar"] {
+  font-feature-settings: "kern", "liga", "calt";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 @theme {
   /* الألوان الأساسية - Azure Nebula */
   --color-primary: #4f8ef7;

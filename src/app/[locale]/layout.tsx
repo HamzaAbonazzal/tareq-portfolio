@@ -14,7 +14,6 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
   preload: true,
-  fallback: ["system-ui", "arial", "sans-serif"],
 });
 
 const cairo = Cairo({
@@ -22,7 +21,7 @@ const cairo = Cairo({
   variable: "--font-cairo",
   display: "swap",
   preload: true,
-  fallback: ["system-ui", "arial", "sans-serif"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -45,9 +44,7 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
   const dir = locale === "ar" ? "rtl" : "ltr";
-
-  // ✅ نضع كلا المتغيرين دائماً على الـ body
-  const fontVariables = `${inter.variable} ${cairo.variable}`;
+  const fontClass = locale === "ar" ? cairo.className : inter.className;
 
   return (
     <html
@@ -55,28 +52,24 @@ export default async function LocaleLayout({
       dir={dir}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
+      className={fontClass}
     >
       <head>
-        <head>
-          {/* ✅ تسريع تحميل خطوط Google */}
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="anonymous"
-          />
-
-          <script src="/theme-init.js" />
-        </head>
+        {/* ✅ إخبار المتصفح بأن الصفحة عربية قبل تحميل CSS */}
+        <meta httpEquiv="Content-Language" content={locale} />
+        
+        {/* ✅ إعدادات الخط */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* سكريبت منع الومضة */}
         <script src="/theme-init.js" />
       </head>
       <body
-        className={`${fontVariables} ${
-          locale === "ar" ? "font-arabic" : "font-sans"
-        } text-light-text dark:text-dark-text transition-colors duration-300`}
+        className="text-light-text dark:text-dark-text transition-colors duration-300 antialiased"
       >
-        {/* <DesignerBackground /> */}
-        {/* <CustomCursor /> */}
+        {/* <DesignerBackground />
+        <CustomCursor /> */}
 
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
