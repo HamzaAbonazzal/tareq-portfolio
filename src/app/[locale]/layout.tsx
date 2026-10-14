@@ -5,7 +5,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import DesignerBackground from "@/components/layout/DesignerBackground";
+// import DesignerBackground from "@/components/layout/DesignerBackground";
 // import CustomCursor from "@/components/layout/CustomCursor";
 import "./globals.css";
 
@@ -75,7 +75,7 @@ export default async function LocaleLayout({
           locale === "ar" ? "font-arabic" : "font-sans"
         } text-light-text dark:text-dark-text transition-colors duration-300`}
       >
-        <DesignerBackground />
+        {/* <DesignerBackground /> */}
         {/* <CustomCursor /> */}
 
         <NextIntlClientProvider messages={messages}>
